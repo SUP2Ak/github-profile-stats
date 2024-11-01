@@ -24,12 +24,4 @@ jobs:
 
       - name: Deploy to Render  
         run: |
-          curl -X POST -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Content-Type: application/json" \
-          -d '{
-            "serviceId": "github-profile-stats",
-            "env": {
-              "GITHUB_TOKEN": "${{ secrets.GITHUB_TOKEN }}"
-            }
-          }' \
-          https://api.render.com/deploy
+          curl -X GET "https://api.render.com/deploy/srv-csii8crv2p9s73ddc6ug?key=${{ secrets.RENDER_DEPLOY_KEY }}"
