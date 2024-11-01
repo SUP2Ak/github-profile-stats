@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+const apiUrl = import.meta.env.VITE_API_URL;
 
 interface Repository {
   name: string;
@@ -21,7 +22,7 @@ const App: React.FC<{ username: string }> = ({ username }) => {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await axios.get<GitHubStats>(`/api/github-stats?username=${username}`);
+        const response = await axios.get<GitHubStats>(`${apiUrl}/api/github-stats?username=${username}`);
         setStats(response.data);
       } catch (error) {
         console.error("Error fetching data", error);

@@ -6,7 +6,7 @@ export default defineConfig({
   server: {
     proxy: {
       '/api': {
-        target: 'http://localhost:8080', // Assure-toi que c'est le bon port
+        target: 'https://github-profile-stats.onrender.com',
         changeOrigin: true,
         secure: false,
       },
