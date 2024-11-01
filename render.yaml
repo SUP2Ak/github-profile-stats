@@ -8,3 +8,5 @@ services:
     envVars:
       - key: GITHUB_TOKEN
         fromSecret: TOKEN_API
+      - key: PORT
+        fromSecret: PORT
