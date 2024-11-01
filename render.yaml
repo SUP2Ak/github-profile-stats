@@ -1,15 +1,10 @@
 version: 1
 services:
   - type: web
-    name: github-stats-backend
+    name: github-profile-stats
     env: go
-    buildCommand: go build -o backend ./backend
-    startCommand: ./backend
-    plan: free
+    buildCommand: go build -o main .
+    startCommand: ./main
     envVars:
-      - key: TOKEN_API
+      - key: GITHUB_TOKEN
         fromSecret: TOKEN_API
-    routes:
-      - type: forward
-        path: /backend
-        service: github-stats-backend
