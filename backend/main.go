@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/google/go-github/github"
-	"github.com/joho/godotenv"
 	"golang.org/x/oauth2"
 )
 
@@ -25,11 +24,11 @@ type GitHubStats struct {
 }
 
 func getGitHubStats(username string) (GitHubStats, error) {
-	err := godotenv.Load(".env")
+	// err := godotenv.Load(".env")
 
-	if err != nil {
-		log.Fatalf("Error loading .env file: %v", err)
-	}
+	// if err != nil {
+	// 	log.Fatalf("Error loading .env file: %v", err)
+	// }
 
 	ctx := context.Background()
 	token := os.Getenv("GITHUB_TOKEN")
