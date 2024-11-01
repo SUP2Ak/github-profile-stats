@@ -1,19 +1,15 @@
+version: 1
 services:
   - type: web
-    name: github-stats-api
+    name: github-stats-backend
     env: go
-    buildCommand: go build -o main .
-    startCommand: ./main
+    buildCommand: go build -o backend ./backend
+    startCommand: ./backend
     plan: free
-    autoDeploy: true
     envVars:
       - key: TOKEN_API
-        value: ${TOKEN_API}
-
-  - type: web
-    name: github-stats-frontend
-    env: static
-    buildCommand: npm install && npm run build
-    startCommand: serve -s build
-    plan: free
-    autoDeploy: true
+        fromSecret: TOKEN_API
+    routes:
+      - type: forward
+        path: /backend
+        service: github-stats-backend
