@@ -9,4 +9,4 @@ services:
       - key: GITHUB_TOKEN
         fromSecret: TOKEN_API
       - key: PORT
-        fromSecret: PORT
+        value: 10000
