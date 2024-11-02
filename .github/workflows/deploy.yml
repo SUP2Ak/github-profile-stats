@@ -1,27 +1,20 @@
-name: Deploy to Render
+name: Deploy to VPS
 
 on:
   push:
     branches:
       - main
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Go
-        uses: actions/setup-go@v2
-        with:
-          go-version: '1.23.2'
-
-      - name: Build the Go application
+      - name: Deploy to VPS
         run: |
-          cd backend
-          go build -o main .
-
-      - name: Deploy to Render  
-        run: |
-          curl -X GET "https://api.render.com/deploy/srv-csii8crv2p9s73ddc6ug?key=${{ secrets.RENDER_DEPLOY_KEY }}"
+          ssh -o StrictHostKeyChecking=no root@${{ secrets.VPS_IP }} "bash ~/github-profile-stats/deploy.sh"
+        env:
+          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
