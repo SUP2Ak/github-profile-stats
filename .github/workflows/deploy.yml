@@ -1,4 +1,4 @@
-name: Deploy to VPS
+name: Deploy
 
 on:
   push:
@@ -13,8 +13,12 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Deploy to VPS
+      - name: Set up SSH
         run: |
-          ssh git@${{ secrets.VPS_IP }} "bash ~/github-profile-stats/deploy.sh"
-        env:
-          SSH_PRIVATE_KEY: ${{ secrets.SSH_PRIVATE_KEY }}
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_rsa
+          chmod 600 ~/.ssh/id_rsa
+          ssh-keyscan -H ${{ secrets.VPS_IP }} >> ~/.ssh/known_hosts
+
+      - name: Run deployment script
+        run: ssh -i ~/.ssh/id_rsa git@${{ secrets.VPS_IP }} "bash ~/github-profile-stats/deploy.sh"
