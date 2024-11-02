@@ -1,6 +1,6 @@
 #!/bin/bash
 
-APP_DIR="/root/github-profile-stats"
+APP_DIR="/home/git/github-profile-stats"
 cd $APP_DIR || exit
 export $(cat .env | xargs)
 
